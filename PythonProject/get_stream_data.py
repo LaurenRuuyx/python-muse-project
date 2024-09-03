@@ -10,6 +10,7 @@ started = True
 row_size = 300
 w, h = row_size, 4
 global_data_arr = [[0 for x in range(w)] for y in range(h)]
+loop_count = 0
 actions = ["nothing","up","down","left","right"]
 csv_path = "C:\\Users\\laurm\\Desktop\\data_recordings.csv"
 
@@ -45,6 +46,7 @@ def record_data_from_stream():
     global global_data_arr
     global actions
     global row_size
+    global loop_count
     recording_started = True
     # resolve_byprop will return an array with all found streams
     streams = resolve_byprop('type','EEG', timeout=20)
@@ -92,12 +94,12 @@ def record_data_from_stream():
 
             if(save_input == "y"):
                 print("saving this sample to csv")
-                # with open(csv_path,'ab',newline='') as myfile:
-                #     wr = csv.writer(myfile) #, quoting=csv.QUOTE_ALL)
-                #     wr.writerows(global_data_arr)
-                #     local_arr = [random_integer]
-                #     wr.writerow(local_arr)
-
+                with open(csv_path,'a',newline='') as myfile:
+                    wr = csv.writer(myfile) #, quoting=csv.QUOTE_ALL)
+                    wr.writerows(global_data_arr)
+                    local_arr = [random_integer]
+                    wr.writerow(local_arr)
+                loop_count = loop_count + 1
             else:
                 print("not saving this sample to csv")
 
@@ -106,6 +108,7 @@ def record_data_from_stream():
             # random_integer = random.randint(0,4)
             random_integer = 0
             action = actions[random_integer]
+            print(loop_count)
             print("Please do the action " + action)
             input()
             current_timestamp = time.time()
