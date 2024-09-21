@@ -63,7 +63,7 @@ def record_data_from_stream():
     
     print("Starting data recording process")
     # random_integer = random.randint(0,4)
-    random_integer = 0
+    random_integer = 4
     action = actions[random_integer]
     print("Please do the action " + action)
     input()
@@ -106,7 +106,7 @@ def record_data_from_stream():
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             # random_integer = random.randint(0,4)
-            random_integer = 0
+            random_integer = 4
             action = actions[random_integer]
             print(loop_count)
             print("Please do the action " + action)
