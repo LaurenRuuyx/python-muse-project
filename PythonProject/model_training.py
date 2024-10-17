@@ -1,21 +1,36 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
 
-data = pd.read_csv("C:\\Users\\laurm\\Desktop\\shuffled_data - Copy.csv",header=None)
+
+labels = ["nothing","up","down","left","right"]
+data = pd.read_csv("C:\\Users\\laurm\\Desktop\\changerates.csv",header=None)
 print(data.head())
 print(data.shape)
 print(data.info())
 print(data.dtypes)
-y = data[1200]
-X = data.drop(1200, axis = 1)
+y = data[40]
+X = data.drop(40, axis = 1)
 print(y)
 X_train,X_test,y_train,y_test=train_test_split(
     X,y, 
     train_size = 0.80, 
     random_state = 1)
 
+print(X_train)
+print(y_train)
+
+# LogisticRegression with One Vs Rest Mulit Class and High Regularization 
+lr_ovr = LogisticRegression(C=0.01, multi_class='ovr')
+
+# Fitting and Predicting
+lr_ovr.fit(X_train, y_train)
+y_pred = lr_ovr.predict(X_test)
+
+print("Accuracy Score        : ",accuracy_score(y_test, y_pred))
+print("Classification Report : \n", classification_report(y_test, y_pred))
 
 
 
