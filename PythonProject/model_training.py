@@ -17,7 +17,7 @@ print(y)
 X_train,X_test,y_train,y_test=train_test_split(
     X,y, 
     train_size = 0.80, 
-    random_state = 1)
+    random_state = 45)
 
 print(X_train)
 print(y_train)
