@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
+import joblib
+
 
 
 labels = ["nothing","up","down","left","right"]
@@ -28,6 +30,9 @@ lr_ovr = LogisticRegression(C=0.01, multi_class='ovr')
 # Fitting and Predicting
 lr_ovr.fit(X_train, y_train)
 y_pred = lr_ovr.predict(X_test)
+
+joblib.dump(lr_ovr, 'C:\\Users\\laurm\\Desktop\\filename.pkl')
+
 
 print("Accuracy Score        : ",accuracy_score(y_test, y_pred))
 print("Classification Report : \n", classification_report(y_test, y_pred))
