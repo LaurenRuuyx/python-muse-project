@@ -9,7 +9,7 @@ global_2d_array = [[0 for x in range(41)] for y in range(1003)]
 # Iterate through the rows in the CSV file
 iteration = 0
 global_row = 0
-with open('C:\\Users\\laurm\\Desktop\\new_data_1d - Copy.csv', 'r') as csvFile:
+with open('C:\\Users\\laurm\\Desktop\\new_data_1d_2 - Copy.csv', 'r') as csvFile:
     # Create a reader object
     csv_reader = csv.reader(csvFile)
     for row in csv_reader:
@@ -26,7 +26,7 @@ with open('C:\\Users\\laurm\\Desktop\\new_data_1d - Copy.csv', 'r') as csvFile:
     print(global_2d_array)
 
 
-# with open('C:\\Users\\laurm\\Desktop\\changerates.csv', 'a',newline='') as csvfile:
-#     wr = csv.writer(csvfile) #, quoting=csv.QUOTE_ALL)
-#     wr.writerows(global_2d_array)
+with open('C:\\Users\\laurm\\Desktop\\changerates_fixed_data.csv', 'a',newline='') as csvfile:
+    wr = csv.writer(csvfile) #, quoting=csv.QUOTE_ALL)
+    wr.writerows(global_2d_array)
 

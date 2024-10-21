@@ -8,7 +8,7 @@ import joblib
 
 
 labels = ["nothing","up","down","left","right"]
-data = pd.read_csv("C:\\Users\\laurm\\Desktop\\changerates.csv",header=None)
+data = pd.read_csv("C:\\Users\\laurm\\Desktop\\changerates_fixed_data.csv",header=None)
 print(data.head())
 print(data.shape)
 print(data.info())

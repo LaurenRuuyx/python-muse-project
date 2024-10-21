@@ -12,7 +12,7 @@ w, h = row_size, 4
 global_data_arr = [[0 for x in range(w)] for y in range(h)]
 loop_count = 0
 actions = ["nothing","up","down","left","right"]
-csv_path = "C:\\Users\\laurm\\Desktop\\data_recordings.csv"
+csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
 
 # Function that gets data from an EEG type stream. A stream needs to be started before the stream is looked up
 def get_data_from_stream():
@@ -63,7 +63,7 @@ def record_data_from_stream():
     
     print("Starting data recording process")
     # random_integer = random.randint(0,4)
-    random_integer = 4
+    random_integer = 1
     action = actions[random_integer]
     print("Please do the action " + action)
     input()
@@ -106,7 +106,7 @@ def record_data_from_stream():
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             # random_integer = random.randint(0,4)
-            random_integer = 4
+            random_integer = 1
             action = actions[random_integer]
             print(loop_count)
             print("Please do the action " + action)
