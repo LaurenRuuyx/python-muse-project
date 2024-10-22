@@ -30,6 +30,7 @@ lr_ovr = LogisticRegression(C=0.01, multi_class='ovr')
 # Fitting and Predicting
 lr_ovr.fit(X_train, y_train)
 y_pred = lr_ovr.predict(X_test)
+print(y_pred)
 
 # joblib.dump(lr_ovr, 'C:\\Users\\laurm\\Desktop\\filename.pkl')
 
