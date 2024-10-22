@@ -19,7 +19,7 @@ print(y)
 X_train,X_test,y_train,y_test=train_test_split(
     X,y, 
     train_size = 0.80, 
-    random_state = 45)
+    random_state = 48)
 
 print(X_train)
 print(y_train)
@@ -30,7 +30,6 @@ lr_ovr = LogisticRegression(C=0.01, multi_class='ovr')
 # Fitting and Predicting
 lr_ovr.fit(X_train, y_train)
 y_pred = lr_ovr.predict(X_test)
-print(y_pred)
 
 # joblib.dump(lr_ovr, 'C:\\Users\\laurm\\Desktop\\filename.pkl')
 
@@ -38,5 +37,8 @@ print(y_pred)
 print("Accuracy Score        : ",accuracy_score(y_test, y_pred))
 print("Classification Report : \n", classification_report(y_test, y_pred))
 
+new_test_data = pd.read_csv("C:\\Users\\laurm\\Desktop\\ModelTesting\\changerates_test_data.csv",header=None)
+new_pred = lr_ovr.predict(new_test_data)
+print(new_pred)
 
 
