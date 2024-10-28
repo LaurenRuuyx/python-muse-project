@@ -13,11 +13,13 @@ import random
 import csv
 
 
-model = joblib.load("")
+model = joblib.load("C:\\Users\\laurm\\Desktop\\brainwave_model.pkl")
 labels = ["nothing","up","down","left","right"]
 row_size = 300
 w, h = row_size, 4
 global_data_arr = [[0 for x in range(w)] for y in range(h)]
+global_1d_arr = []
+changerates_arr = []
 loop_count = 0
 csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
 
@@ -26,6 +28,8 @@ def live_eeg_test():
     global labels
     global row_size
     global loop_count
+    global global_1d_arr
+    global changerates_arr
 
     started_loop = True
     streams = resolve_byprop('type','EEG', timeout=20)
@@ -42,7 +46,8 @@ def live_eeg_test():
     
     rows = 0
     current_timestamp = time.time()
-
+    print("Please do an action")
+    input()
     while(started_loop):
         inlet_tuple =  inlet.pull_sample(timeout=0.2)
         # print (inlet_tuple)
@@ -58,3 +63,19 @@ def live_eeg_test():
             # print(data_array[i])
             global_data_arr[i][rows] = int(data_array[i])
         rows = rows + 1
+        if (rows == row_size):
+            global_1d_arr = global_data_arr[0] + global_data_arr[1] + global_1d_arr[2] + global_1d_arr[3]
+            for j in range(0,40):
+                lower = i * 30
+                higher = (i+1) * 30
+                value = int(((int(global_1d_arr[higher]) + 200) - (int(global_1d_arr[lower]) + 200))/30)
+                changerates_arr.append(value)
+            # print(model.predict(changerates_arr))
+            print(changerates_arr)
+            rows = 0
+            global_data_arr = [[0 for x in range(w)] for y in range(h)]
+            global_1d_arr = []
+            changerates_arr = []
+            print("Please do an action")
+            input()
+            current_timestamp = time.time()
