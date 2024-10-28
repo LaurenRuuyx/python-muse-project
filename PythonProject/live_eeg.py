@@ -64,14 +64,23 @@ def live_eeg_test():
             global_data_arr[i][rows] = int(data_array[i])
         rows = rows + 1
         if (rows == row_size):
-            global_1d_arr = global_data_arr[0] + global_data_arr[1] + global_1d_arr[2] + global_1d_arr[3]
+            global_1d_arr = global_data_arr[0] + global_data_arr[1] + global_data_arr[2] + global_data_arr[3]
+            print(global_1d_arr)
+            print(len(global_1d_arr))
             for j in range(0,40):
-                lower = i * 30
-                higher = (i+1) * 30
+                lower = j * 30
+                if(j == 39):
+                    higher = ((j+1) * 30) - 1
+                else:
+                    higher = (j+1) * 30
                 value = int(((int(global_1d_arr[higher]) + 200) - (int(global_1d_arr[lower]) + 200))/30)
                 changerates_arr.append(value)
             # print(model.predict(changerates_arr))
             print(changerates_arr)
+            print(len(changerates_arr))
+            predictarr = []
+            predictarr.append(changerates_arr)
+            print(model.predict(predictarr))
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             global_1d_arr = []
@@ -79,3 +88,6 @@ def live_eeg_test():
             print("Please do an action")
             input()
             current_timestamp = time.time()
+
+
+live_eeg_test()
