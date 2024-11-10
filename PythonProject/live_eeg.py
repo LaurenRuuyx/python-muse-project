@@ -80,7 +80,7 @@ def live_eeg_test():
             print(len(changerates_arr))
             predictarr = []
             predictarr.append(changerates_arr)
-            print(model.predict(predictarr))
+            print(labels[model.predict(predictarr)[0]])
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             global_1d_arr = []
