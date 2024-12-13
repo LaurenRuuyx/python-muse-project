@@ -23,6 +23,27 @@ global_1d_arr = []
 changerates_arr = []
 loop_count = 0
 csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
+keyboard = Controller()
+
+def input_for_prediction(input_action):
+    if(input_action == "nothing"):
+        return
+    if(input_action == "up"):
+        keyboard.press('w')
+        keyboard.release('w')
+        return
+    if(input_action == "down"):
+        keyboard.press('s')
+        keyboard.release('s')
+        return
+    if(input_action == "left"):
+        keyboard.press('a')
+        keyboard.release('a')
+        return
+    if(input_action == "right"):
+        keyboard.press('d')
+        keyboard.release('d')
+        return
 
 def live_eeg_test():
     global global_data_arr
@@ -82,6 +103,8 @@ def live_eeg_test():
             predictarr = []
             predictarr.append(changerates_arr)
             print(labels[model.predict(predictarr)[0]])
+            predicted_action = labels[model.predict(predictarr)[0]]
+            input_for_prediction(predicted_action)
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             global_1d_arr = []
