@@ -12,6 +12,7 @@ import time
 import random
 import csv
 from pynput.keyboard import Key,Controller
+from playsound import playsound
 
 
 model = joblib.load("C:\\Users\\laurm\\Desktop\\brainwave_model.pkl")
@@ -25,23 +26,30 @@ loop_count = 0
 csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
 keyboard = Controller()
 
+def play_beep_noise():
+    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep.mp3')
+
 def input_for_prediction(input_action):
     if(input_action == "nothing"):
         return
     if(input_action == "up"):
         keyboard.press('w')
+        time.sleep(0.1)
         keyboard.release('w')
         return
     if(input_action == "down"):
         keyboard.press('s')
+        time.sleep(0.1)
         keyboard.release('s')
         return
     if(input_action == "left"):
         keyboard.press('a')
+        time.sleep(0.1)
         keyboard.release('a')
         return
     if(input_action == "right"):
         keyboard.press('d')
+        time.sleep(0.1)
         keyboard.release('d')
         return
 
@@ -67,9 +75,10 @@ def live_eeg_test():
     if inlet == None: return
     
     rows = 0
+    play_beep_noise()
     current_timestamp = time.time()
     print("Please do an action")
-    input()
+    # input()
     while(started_loop):
         inlet_tuple =  inlet.pull_sample(timeout=0.2)
         # print (inlet_tuple)
@@ -110,7 +119,8 @@ def live_eeg_test():
             global_1d_arr = []
             changerates_arr = []
             print("Please do an action")
-            input()
+            # input()
+            play_beep_noise()
             current_timestamp = time.time()
 
 
