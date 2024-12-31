@@ -18,3 +18,9 @@ def change_current_player():
     global player_1
     player_1 = not player_1
     return player_1
+
+@app.post("/current_player/reset")
+def reset_current_player():
+    global player_1
+    player_1 = True
+    return player_1
