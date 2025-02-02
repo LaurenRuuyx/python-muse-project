@@ -12,7 +12,7 @@ w, h = row_size, 4
 global_data_arr = [[0 for x in range(w)] for y in range(h)]
 loop_count = 0
 actions = ["nothing","up","down","left","right"]
-csv_path = "C:\\Users\\laurm\\Desktop\\ModelTesting\\test_data.csv"
+csv_path = "C:\\Users\\laurm\\Desktop\\FinalProjectCSV\\project_data.csv"
 
 # Function that gets data from an EEG type stream. A stream needs to be started before the stream is looked up
 def get_data_from_stream():
@@ -72,14 +72,13 @@ def record_data_from_stream():
     print(current_timestamp)
     while(recording_started):
         inlet_tuple =  inlet.pull_sample(timeout=0.2)
-        # print (inlet_tuple)
         data_array = inlet_tuple[0]
-        try:
-            if(current_timestamp > inlet_tuple[1]):
-                continue
-        except:
-            print("Error Occurred")
+        # try:
+        if(current_timestamp > inlet_tuple[1]):
             continue
+        # except:
+        #     print("Error Occurred")
+        #     continue
         print(inlet_tuple)
         for i in range(4):
             # print(data_array[i])
@@ -97,6 +96,8 @@ def record_data_from_stream():
                 with open(csv_path,'a',newline='') as myfile:
                     wr = csv.writer(myfile) #, quoting=csv.QUOTE_ALL)
                     wr.writerows(global_data_arr)
+                    local_arr = [random_integer]
+                    wr.writerow(local_arr)
                 loop_count = loop_count + 1
             else:
                 print("not saving this sample to csv")

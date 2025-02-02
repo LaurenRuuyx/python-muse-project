@@ -31,7 +31,7 @@ lr_ovr = LogisticRegression(C=0.01, multi_class='ovr')
 lr_ovr.fit(X_train, y_train)
 y_pred = lr_ovr.predict(X_test)
 
-joblib.dump(lr_ovr, 'C:\\Users\\laurm\\Desktop\\brainwave_model.pkl')
+# joblib.dump(lr_ovr, 'C:\\Users\\laurm\\Desktop\\brainwave_model.pkl')
 
 
 print("Accuracy Score        : ",accuracy_score(y_test, y_pred))
