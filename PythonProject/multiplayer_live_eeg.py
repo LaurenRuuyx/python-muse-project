@@ -31,7 +31,7 @@ player_1 = True
 
 
 def play_beep_noise():
-    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep.mp3')
+    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep-06.mp3')
 
 def get_request():
     global url
@@ -41,6 +41,7 @@ def get_request():
 
 
 def input_for_prediction(input_action):
+    global player_1
     if(input_action == "nothing"):
         return
     if(input_action == "up"):
@@ -49,9 +50,11 @@ def input_for_prediction(input_action):
         keyboard.release('w')
         return
     if(input_action == "down"):
-        keyboard.press('s')
+        keyboard.press(Key.down)
         time.sleep(0.1)
-        keyboard.release('s')
+        keyboard.press(Key.down)
+        time.sleep(1)
+        player_1 = get_request()
         return
     if(input_action == "left"):
         keyboard.press('a')
@@ -71,6 +74,7 @@ def live_eeg_test():
     global loop_count
     global global_1d_arr
     global changerates_arr
+    global player_1
 
     started_loop = True
     streams = resolve_byprop('type','EEG', timeout=20)
@@ -136,7 +140,6 @@ def live_eeg_test():
             print("Please do an action")
             # input()
             play_beep_noise()
-            player_1 = get_request()
             current_timestamp = time.time()
 
 

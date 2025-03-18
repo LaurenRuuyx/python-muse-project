@@ -27,7 +27,7 @@ csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
 keyboard = Controller()
 
 def play_beep_noise():
-    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep.mp3')
+    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep-06.mp3')
 
 def input_for_prediction(input_action):
     if(input_action == "nothing"):
@@ -38,9 +38,9 @@ def input_for_prediction(input_action):
         keyboard.release('w')
         return
     if(input_action == "down"):
-        keyboard.press('s')
+        keyboard.press(Key.down)
         time.sleep(0.1)
-        keyboard.release('s')
+        keyboard.release(Key.down)
         return
     if(input_action == "left"):
         keyboard.press('a')
@@ -118,9 +118,9 @@ def live_eeg_test():
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             global_1d_arr = []
             changerates_arr = []
-            print("Please do an action")
             # input()
             play_beep_noise()
+            print("Please do an action")
             current_timestamp = time.time()
 
 

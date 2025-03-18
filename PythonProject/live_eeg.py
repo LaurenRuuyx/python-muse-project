@@ -66,8 +66,8 @@ def live_eeg_test():
         rows = rows + 1
         if (rows == row_size):
             global_1d_arr = global_data_arr[0] + global_data_arr[1] + global_data_arr[2] + global_data_arr[3]
-            print(global_1d_arr)
-            print(len(global_1d_arr))
+            # print(global_1d_arr)
+            # print(len(global_1d_arr))
             for j in range(0,40):
                 lower = j * 30
                 if(j == 39):

@@ -27,7 +27,7 @@ global_1d_arr = []
 keyboard = Controller()
 
 def play_beep_noise():
-    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep.mp3')
+    playsound(r'C:\\Users\laurm\Documents\GitHub\python-muse-project\PythonProject\beep-06.mp3')
 
 def input_for_prediction(input_action):
     if(input_action == "nothing"):
@@ -87,11 +87,12 @@ def live_eeg_test():
         except:
             print("Error Occurred")
             continue
-        print(inlet_tuple)
+        # print(inlet_tuple)
         for i in range(4):
             # print(data_array[i])
             global_data_arr[i][rows] = int(data_array[i])
         rows = rows + 1
+        print(rows)
         if (rows == row_size):
             data = np.array(global_data_arr)
             min_max_scaler = preprocessing.MinMaxScaler()
@@ -104,12 +105,13 @@ def live_eeg_test():
             answer = np.argmax(answer, axis=1)
             print(labels[answer[0]])
             predicted_action = labels[answer[0]]
-            input_for_prediction(predicted_action)
+            # input_for_prediction(predicted_action)
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
-            print("Please do an action")
+            # print("Please do an action")
             # input()
             play_beep_noise()
+            print("PERFORM ACTION")
             current_timestamp = time.time()
 
 
