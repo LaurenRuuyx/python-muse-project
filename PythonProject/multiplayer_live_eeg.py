@@ -26,7 +26,7 @@ changerates_arr = []
 loop_count = 0
 csv_path = "C:\\Users\\laurm\\Desktop\\Fixed_data.csv"
 keyboard = Controller()
-url = "http://127.0.0.1:8000/current_player/swap"
+url = "http://127.0.0.1:8000/current_player"
 player_1 = True
 
 
@@ -35,8 +35,9 @@ def play_beep_noise():
 
 def get_request():
     global url
-    response = requests.post(url)
+    response = requests.get(url)
     response_json = response.json()
+    print(response_json)
     return response_json
 
 
@@ -46,24 +47,22 @@ def input_for_prediction(input_action):
         return
     if(input_action == "up"):
         keyboard.press('w')
-        time.sleep(0.1)
+        time.sleep(0.2)
         keyboard.release('w')
         return
     if(input_action == "down"):
         keyboard.press(Key.down)
-        time.sleep(0.1)
+        time.sleep(0.2)
         keyboard.press(Key.down)
-        time.sleep(1)
-        player_1 = get_request()
         return
     if(input_action == "left"):
         keyboard.press('a')
-        time.sleep(0.1)
+        time.sleep(0.2)
         keyboard.release('a')
         return
     if(input_action == "right"):
         keyboard.press('d')
-        time.sleep(0.1)
+        time.sleep(0.2)
         keyboard.release('d')
         return
 
@@ -77,7 +76,7 @@ def live_eeg_test():
     global player_1
 
     started_loop = True
-    streams = resolve_byprop('type','EEG', timeout=20)
+    streams = resolve_byprop('type','EEG', timeout=20, minimum=2)
     # Check that a stream has been found
     # If not return early
 
@@ -85,23 +84,28 @@ def live_eeg_test():
         print("No EEG streams found, returning early")
         return
     
+    print(len(streams))
+    print(streams[0])
+    print(streams[1])
     inlet_1 = StreamInlet(streams[0],max_chunklen=12,max_buflen=1)
     inlet_2 = StreamInlet(streams[1],max_chunklen=12,max_buflen=1)
 
     if inlet_1 == None: return
     if inlet_2 == None: return
-
     rows = 0
     play_beep_noise()
     current_timestamp = time.time()
     print("Please do an action")
     # input()
     while(started_loop):
-        if(player_1):
-            inlet_tuple =  inlet_1.pull_sample(timeout=0.2)
-        else:
-            inlet_tuple =  inlet_2.pull_sample(timeout=0.2)  
-            
+        if(player_1 == False):
+            inlet_tuple = inlet_1.pull_sample(timeout=0.2)
+            if(rows == 0):
+                print("STREAM 1")
+        if(player_1 == True):
+            inlet_tuple = inlet_2.pull_sample(timeout=0.2)
+            if(rows == 0):
+                print("STREAM 2")
         data_array = inlet_tuple[0]
         try:
             if(current_timestamp > inlet_tuple[1]):
@@ -115,8 +119,8 @@ def live_eeg_test():
         rows = rows + 1
         if (rows == row_size):
             global_1d_arr = global_data_arr[0] + global_data_arr[1] + global_data_arr[2] + global_data_arr[3]
-            print(global_1d_arr)
-            print(len(global_1d_arr))
+            # print(global_1d_arr)
+            # print(len(global_1d_arr))
             for j in range(0,40):
                 lower = j * 30
                 if(j == 39):
@@ -126,13 +130,15 @@ def live_eeg_test():
                 value = int(((int(global_1d_arr[higher]) + 200) - (int(global_1d_arr[lower]) + 200))/30)
                 changerates_arr.append(value)
             # print(model.predict(changerates_arr))
-            print(changerates_arr)
-            print(len(changerates_arr))
+            # print(changerates_arr)
+            # print(len(changerates_arr))
             predictarr = []
             predictarr.append(changerates_arr)
             print(labels[model.predict(predictarr)[0]])
             predicted_action = labels[model.predict(predictarr)[0]]
             input_for_prediction(predicted_action)
+            time.sleep(0.5)
+            player_1 = get_request()
             rows = 0
             global_data_arr = [[0 for x in range(w)] for y in range(h)]
             global_1d_arr = []
