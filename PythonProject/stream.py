@@ -12,7 +12,7 @@ def stream_thread_function():
     mac_address = muses[0]['address']
     # Start the lsl stream with the muse
     print(mac_address)
-    # muselsl.stream(mac_address)
+    muselsl.stream(mac_address)
 
 stream_thread_function()
 current_timestamp = time.time()
