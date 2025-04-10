@@ -46,9 +46,9 @@ def input_for_prediction(input_action):
     if(input_action == "nothing"):
         return
     if(input_action == "up"):
-        keyboard.press(Key.down)
+        keyboard.press(Key.up)
         time.sleep(0.2)
-        keyboard.release(Key.down)
+        keyboard.release(Key.up)
         return
     if(input_action == "down"):
         keyboard.press(Key.down)
